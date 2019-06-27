@@ -119,7 +119,11 @@ class Command(Command):
                 log.debug(
                     'Dump thread going to sleep for %s seconds',
                     self.dump_interval)
-                time.sleep(self.dump_interval)
+
+                for i in range(self.dump_interval):
+                    if self.should_stop:
+                        break
+                    time.sleep(1)
             except Exception:
                 log.error(
                     'Uncaught exception, preventing thread from crashing.',
